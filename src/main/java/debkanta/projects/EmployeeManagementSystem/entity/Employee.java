@@ -2,6 +2,8 @@ package debkanta.projects.EmployeeManagementSystem.entity;
 
 import debkanta.projects.EmployeeManagementSystem.model.Designation;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,23 +19,25 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Email
+    @NotNull
+    @Column(unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @NotNull
     private boolean isAssignedToAProject;
 
-    @Column(nullable = false)
+    @NotNull
     private Date joiningYear;
 
-    @Column(nullable = false)
+    @NotNull
     private Designation designation;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     @ManyToMany

@@ -23,9 +23,25 @@ public class DepartmentService {
     }
 
     @Transactional
-    public boolean deleteDepartment(Function name) {
-        int deletedCount = departmentRepository.deleteByName(name);
+    public boolean deleteByDepartmentId(long departmentId) {
+        if (departmentRepository.existsById(departmentId)) {
+            departmentRepository.deleteById(departmentId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        return deletedCount > 0;
+    public Department updateDepartment(long departmentId, Department departmentRequest) {
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+
+        if(department != null) {
+            department.setDescription(departmentRequest.getDescription());
+            department.setName(departmentRequest.getName());
+        }
+
+        System.out.println(department + "here");
+
+        return department;
     }
 }

@@ -1,7 +1,6 @@
 package debkanta.projects.EmployeeManagementSystem.controller;
 
 import debkanta.projects.EmployeeManagementSystem.entity.Department;
-import debkanta.projects.EmployeeManagementSystem.model.Function;
 import debkanta.projects.EmployeeManagementSystem.service.DepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,28 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    // create
     @PostMapping
-    public Department createDepartment(@RequestBody @Valid Department department) {
+    public Department createDepartment(@Valid @RequestBody Department department) {
         return departmentService.createDepartment(department);
     }
 
+    // read
     @GetMapping
     public List<Department> getDepartments() {
         return departmentService.getDepartments();
     }
 
-    @DeleteMapping("{name}")
-    public boolean deleteDepartment(@PathVariable Function name) {
-        return departmentService.deleteDepartment(name);
+    // update
+    @PutMapping("{departmentId}")
+    public Department updateDepartment(@PathVariable long departmentId,
+                                       @RequestBody @Valid Department department) {
+        return departmentService.updateDepartment(departmentId, department);
+    }
+
+    // delete
+    @DeleteMapping("{departmentId}")
+    public boolean deleteDepartment(@PathVariable long departmentId) {
+        return departmentService.deleteByDepartmentId(departmentId);
     }
 }
