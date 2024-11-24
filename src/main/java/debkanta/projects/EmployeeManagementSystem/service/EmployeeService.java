@@ -27,14 +27,18 @@ public class EmployeeService {
 
         Employee employeeEntity = new Employee();
 
-        employeeEntity.setName(employee.getName());
-        employeeEntity.setEmail(employee.getEmail());
-        employeeEntity.setAssignedToAProject(employee.isAssignedToAProject());
-        employeeEntity.setJoiningYear(employee.getJoiningYear());
-        employeeEntity.setDesignation(employee.getDesignation());
-        employeeEntity.setDepartment(department);
+        if(department != null) {
+            employeeEntity.setName(employee.getName());
+            employeeEntity.setEmail(employee.getEmail());
+            employeeEntity.setAssignedToAProject(employee.isAssignedToAProject());
+            employeeEntity.setJoiningYear(employee.getJoiningYear());
+            employeeEntity.setDesignation(employee.getDesignation());
+            employeeEntity.setDepartment(department);
 
-        return employeeRepository.save(employeeEntity);
+            employeeEntity = employeeRepository.save(employeeEntity);
+        }
+
+        return employeeEntity;
     }
 
     public List<Employee> getEmployees() {

@@ -26,12 +26,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("{employeeId}")
-    public boolean deleteEmployee(@PathVariable long employeeId) {
+    public boolean deleteEmployee(@PathVariable("employeeId") long employeeId) {
         return employeeService.deleteEmployee(employeeId);
     }
 
     @PutMapping("{employeeId}")
-    public Employee updateEmployee(@PathVariable long employeeId, @Valid @RequestBody CreateOrUpdateEmployeeDto employeeDto) {
+    public Employee updateEmployee(@PathVariable("employeeId") long employeeId, @Valid @RequestBody CreateOrUpdateEmployeeDto employeeDto) {
         return employeeService.updateEmployee(employeeId, employeeDto);
     }
 }

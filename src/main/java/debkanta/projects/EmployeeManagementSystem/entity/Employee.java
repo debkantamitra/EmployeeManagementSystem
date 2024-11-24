@@ -1,5 +1,6 @@
 package debkanta.projects.EmployeeManagementSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import debkanta.projects.EmployeeManagementSystem.model.Designation;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -41,6 +42,7 @@ public class Employee {
     private Department department;
 
     @ManyToMany
+    @JsonManagedReference
     @JoinTable(name = "employee_project",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
