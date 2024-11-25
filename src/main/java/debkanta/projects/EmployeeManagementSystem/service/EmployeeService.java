@@ -4,6 +4,7 @@ import debkanta.projects.EmployeeManagementSystem.entity.Department;
 import debkanta.projects.EmployeeManagementSystem.entity.Employee;
 import debkanta.projects.EmployeeManagementSystem.entity.Project;
 import debkanta.projects.EmployeeManagementSystem.model.CreateOrUpdateEmployeeDto;
+import debkanta.projects.EmployeeManagementSystem.model.DepartmentType;
 import debkanta.projects.EmployeeManagementSystem.repository.DepartmentRepository;
 import debkanta.projects.EmployeeManagementSystem.repository.EmployeeRepository;
 import debkanta.projects.EmployeeManagementSystem.repository.ProjectRepository;
@@ -75,5 +76,21 @@ public class EmployeeService {
         }
 
         return null;
+    }
+
+    public List<Employee> searchEmployeeByQuery(String name, DepartmentType department, String project) {
+        Department storedDepartment = department != null ? departmentRepository.findByName(department) : null;
+        Project storedProject = project != null ? projectRepository.findByNameContainingIgnoreCase(project) : null;
+
+        if (storedDepartment != null && storedProject != null) {
+            return employeeRepository.findByNameContainingIgnoreCaseAndDepartmentIdAndAssignedProjectsContaining(
+                    name, storedDepartment.getId(), storedProject);
+        } else if (storedDepartment != null) {
+            return employeeRepository.findByNameContainingIgnoreCaseAndDepartmentId(name, storedDepartment.getId());
+        } else if (storedProject != null) {
+            return employeeRepository.findByNameContainingIgnoreCaseAndAssignedProjectsContaining(name, storedProject);
+        }
+
+        return employeeRepository.findByNameContainingIgnoreCase(name);
     }
 }

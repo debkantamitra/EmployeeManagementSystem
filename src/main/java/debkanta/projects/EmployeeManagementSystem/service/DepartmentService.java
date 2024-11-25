@@ -1,7 +1,6 @@
 package debkanta.projects.EmployeeManagementSystem.service;
 
 import debkanta.projects.EmployeeManagementSystem.entity.Department;
-import debkanta.projects.EmployeeManagementSystem.model.Function;
 import debkanta.projects.EmployeeManagementSystem.repository.DepartmentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

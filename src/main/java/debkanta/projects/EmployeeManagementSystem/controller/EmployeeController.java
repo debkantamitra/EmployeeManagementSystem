@@ -2,8 +2,10 @@ package debkanta.projects.EmployeeManagementSystem.controller;
 
 import debkanta.projects.EmployeeManagementSystem.entity.Employee;
 import debkanta.projects.EmployeeManagementSystem.model.CreateOrUpdateEmployeeDto;
+import debkanta.projects.EmployeeManagementSystem.model.DepartmentType;
 import debkanta.projects.EmployeeManagementSystem.service.EmployeeService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +35,13 @@ public class EmployeeController {
     @PutMapping("{employeeId}")
     public Employee updateEmployee(@PathVariable("employeeId") long employeeId, @Valid @RequestBody CreateOrUpdateEmployeeDto employeeDto) {
         return employeeService.updateEmployee(employeeId, employeeDto);
+    }
+
+    @GetMapping("search")
+    public List<Employee> searchEmployeeByQuery(@RequestParam("name") @NotNull String name,
+                                                @RequestParam(value ="department", required = false) DepartmentType department,
+                                                @RequestParam(value ="project", required = false) String project) {
+
+        return employeeService.searchEmployeeByQuery(name, department, project);
     }
 }

@@ -34,4 +34,9 @@ public class ProjectController {
     public Project updateProject(@PathVariable("projectId") long projectId, @RequestBody @Valid CreateOrUpdateProjectDto projectDto) {
         return projectService.updateProject(projectId, projectDto);
     }
+
+    @GetMapping("budget/{departmentId}")
+    public long getProjectsBudgetByDepartmentId(@PathVariable("departmentId") long departmentId) {
+        return projectService.getProjectsBudgetByDepartmentId(departmentId);
+    }
 }

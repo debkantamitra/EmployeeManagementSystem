@@ -1,6 +1,6 @@
 package debkanta.projects.EmployeeManagementSystem.model;
 
-public enum Function {
+public enum DepartmentType {
     ENGINEERING,
     PRODUCT,
     BUSINESS,

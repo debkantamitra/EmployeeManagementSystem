@@ -92,4 +92,18 @@ public class ProjectService {
 
         return project;
     }
+
+    public long getProjectsBudgetByDepartmentId(long departmentId) {
+        long sum = 0;
+
+        if(departmentRepository.existsById(departmentId)) {
+            List<Project> projectList = projectRepository.findAllByDepartmentId(departmentId);
+
+            for(Project project: projectList) {
+                sum += project.getBudget();
+            }
+        }
+
+        return sum;
+    }
 }
