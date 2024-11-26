@@ -1,7 +1,8 @@
 package debkanta.projects.EmployeeManagementSystem.entity;
 
-import debkanta.projects.EmployeeManagementSystem.model.Function;
+import debkanta.projects.EmployeeManagementSystem.model.DepartmentType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +13,11 @@ public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(nullable = false, unique = true)
+
+    @NotNull
+    @Column(unique = true)
     @Enumerated(EnumType.STRING)
-    private Function name;
+    private DepartmentType name;
+
     private String description;
 }

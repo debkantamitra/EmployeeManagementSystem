@@ -1,7 +1,6 @@
 package debkanta.projects.EmployeeManagementSystem.service;
 
 import debkanta.projects.EmployeeManagementSystem.entity.Department;
-import debkanta.projects.EmployeeManagementSystem.model.Function;
 import debkanta.projects.EmployeeManagementSystem.repository.DepartmentRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,25 @@ public class DepartmentService {
     }
 
     @Transactional
-    public boolean deleteDepartment(Function name) {
-        int deletedCount = departmentRepository.deleteByName(name);
+    public boolean deleteByDepartmentId(long departmentId) {
+        if (departmentRepository.existsById(departmentId)) {
+            departmentRepository.deleteById(departmentId);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        return deletedCount > 0;
+    public Department updateDepartment(long departmentId, Department departmentRequest) {
+        Department department = departmentRepository.findById(departmentId).orElse(null);
+
+        if(department != null) {
+            department.setDescription(departmentRequest.getDescription());
+            department.setName(departmentRequest.getName());
+        }
+
+        System.out.println(department + "here");
+
+        return department;
     }
 }

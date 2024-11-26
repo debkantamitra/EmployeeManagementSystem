@@ -1,8 +1,11 @@
 package debkanta.projects.EmployeeManagementSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.Date;
 import java.util.List;
@@ -28,5 +31,6 @@ public class Project {
     private Department department;
 
     @ManyToMany(mappedBy = "assignedProjects")
+    @JsonBackReference
     private List<Employee> employeeList;
 }
