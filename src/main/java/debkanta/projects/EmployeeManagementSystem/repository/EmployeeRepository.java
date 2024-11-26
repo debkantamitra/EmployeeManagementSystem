@@ -15,4 +15,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByNameContainingIgnoreCaseAndAssignedProjectsContaining(String name, Project storedProject);
 
     List<Employee> findByNameContainingIgnoreCase(String name);
+
+    List<Employee> findByAssignedProjectsEmpty();
+
+    List<Employee> findByAssignedProjects_Id(long projectId);
 }

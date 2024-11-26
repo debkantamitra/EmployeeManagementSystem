@@ -38,10 +38,20 @@ public class EmployeeController {
     }
 
     @GetMapping("search")
-    public List<Employee> searchEmployeeByQuery(@RequestParam("name") @NotNull String name,
+    public List<Employee> searchEmployeeByQuery(@RequestParam("name") String name,
                                                 @RequestParam(value ="department", required = false) DepartmentType department,
                                                 @RequestParam(value ="project", required = false) String project) {
 
         return employeeService.searchEmployeeByQuery(name, department, project);
+    }
+
+    @GetMapping("/project/unassigned")
+    public List<Employee> getProjectUnassignedEmployees() {
+        return employeeService.getProjectUnassignedEmployees();
+    }
+
+    @GetMapping("/project/{projectId}")
+    public List<Employee> getEmployeesByProject(@PathVariable("projectId") long projectId) {
+        return employeeService.getEmployeesByProject(projectId);
     }
 }

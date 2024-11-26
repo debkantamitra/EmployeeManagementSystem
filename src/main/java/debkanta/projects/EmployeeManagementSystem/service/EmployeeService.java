@@ -11,6 +11,7 @@ import debkanta.projects.EmployeeManagementSystem.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -92,5 +93,20 @@ public class EmployeeService {
         }
 
         return employeeRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    public List<Employee> getProjectUnassignedEmployees() {
+        return employeeRepository.findByAssignedProjectsEmpty();
+    }
+
+    public List<Employee> getEmployeesByProject(long projectId) {
+        Project storedProject = projectRepository.findById(projectId)
+                .orElse(null);
+
+        if(storedProject != null) {
+            return employeeRepository.findByAssignedProjects_Id(projectId);
+        }
+
+        return new ArrayList<>();
     }
 }
